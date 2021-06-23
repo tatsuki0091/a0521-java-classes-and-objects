@@ -1,4 +1,6 @@
 package children;
+
+
 import parent.Animal;
 public class Birds extends Animal{
 	private boolean animalsWith;
@@ -20,6 +22,7 @@ public class Birds extends Animal{
 	
 	public boolean getAnimalsWith() {
 		return animalsWith;
+		
 	}
 	
 	public String getFeatures() {
