@@ -7,28 +7,15 @@ import java.util.Scanner;
 public class AirlineReservation<fa, sa> {
 	// The seat map
 	private Map<Integer, String> seatMap = new HashMap<>();
-
-//	// Customer's name
-//	private final String name;
-//	// Customer's id
-//	private final int id;
+	private Map<Integer, String> adminMap = new HashMap<>();
+	
 	// Limit of seats
 	private final int SEAT_LIMIT = 3;
 
-	// Constractor
-//	AirlineReservation(String name, int id) {
-//		this.name = name;
-//		this.id = id;
-//	}
-
-	// Getters
-//	public String getName() {
-//		return name;
-//	}
-//
-//	public int getId() {
-//		return id;
-//	}
+	// Constructor
+	AirlineReservation() {
+		adminMap.put(1, "Tatsuki Yamatani");
+	}
 
 	// Showing a menu.
 	public void showMenu() {
@@ -44,7 +31,8 @@ public class AirlineReservation<fa, sa> {
 			System.out.println("A : Booking");
 			System.out.println("B : Cancel");
 			System.out.println("C : Confirm");
-			System.out.println("D : Exit");
+			System.out.println("D : Check all seats(Only administrator)");
+			System.out.println("E : Exit");
 			option = scanner.nextLine().charAt(0);
 			System.out.println("\n");
 
@@ -90,6 +78,14 @@ public class AirlineReservation<fa, sa> {
 				}
 				break;
 			case 'd':
+				System.out.println("-------------------------------------------------------");
+				System.out.println("Check all seats(Only administrator)");
+				System.out.println("-------------------------------------------------------");
+				UserInfo inputUserInfo = inputUser(scanner);
+				showList(inputUserInfo.getName(), inputUserInfo.getId());
+				break;
+				
+			case 'e':
 				System.out.println(
 						"=========================================================================================================");
 				break;
@@ -97,7 +93,7 @@ public class AirlineReservation<fa, sa> {
 				// System.out.println("Invalid Option!! Please Enter Correct Option...");
 				break;
 			}
-		} while (Character.toLowerCase(option) != 'd');
+		} while (Character.toLowerCase(option) != 'e');
 		System.out.println("Thank You for using our service!!");
 		scanner.close();
 	}
@@ -138,6 +134,16 @@ public class AirlineReservation<fa, sa> {
 		} else {
 			System.out.println("There is not your reservation.");
 			System.out.println("Please confirm your booking or your user information.");
+		}
+	}
+	
+	private void showList(String name, int id) {
+		if (adminMap.containsKey(id) && adminMap.get(id).equals(name)) {
+			for (int key : seatMap.keySet()) {
+			    System.out.println(key + " => " + seatMap.get(key));
+			}
+		} else {
+			System.out.println("You are not admin user, so you can not use this service.");
 		}
 	}
 
